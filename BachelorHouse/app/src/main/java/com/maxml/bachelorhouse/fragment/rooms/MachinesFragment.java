@@ -34,19 +34,48 @@ import java.util.List;
 public class MachinesFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String PHOTO_POSITION = "photoName-position";
-
+    static Room room;
     private TextView noMachines;
-
     private ListView machinesView;
     private SwipeRefreshLayout refreshLayout;
     private MachinesAdapter mAdapter;
-
     private List<Machine> machines;
-
     private ActionMode actionMode;
     private int position;
+    private ActionMode.Callback callback = new ActionMode.Callback() {
 
-    static Room room;
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.menu_item_popup, menu);
+            return true;
+        }
+
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_delete:
+                    MachinesDao dao = new MachinesDao(getActivity());
+                    dao.delete(machines.get(position));
+
+                    updateAdapter();
+
+                    mode.finish();
+                    break;
+            }
+            return false;
+        }
+
+        public void onDestroyActionMode(ActionMode mode) {
+            actionMode = null;
+        }
+
+    };
+
+    public MachinesFragment() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -60,10 +89,6 @@ public class MachinesFragment extends Fragment {
         args.putInt(PHOTO_POSITION, position);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    public MachinesFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -153,37 +178,6 @@ public class MachinesFragment extends Fragment {
             noMachines.setVisibility(View.GONE);
         }
     }
-
-    private ActionMode.Callback callback = new ActionMode.Callback() {
-
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.getMenuInflater().inflate(R.menu.menu_item_popup, menu);
-            return true;
-        }
-
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_delete:
-                    MachinesDao dao = new MachinesDao(getActivity());
-                    dao.delete(machines.get(position));
-
-                    updateAdapter();
-
-                    mode.finish();
-                    break;
-            }
-            return false;
-        }
-
-        public void onDestroyActionMode(ActionMode mode) {
-            actionMode = null;
-        }
-
-    };
 
 
 }

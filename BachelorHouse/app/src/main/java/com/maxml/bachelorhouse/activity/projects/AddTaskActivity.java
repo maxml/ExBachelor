@@ -11,13 +11,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.maxml.bachelorhouse.R;
-import com.maxml.bachelorhouse.db.ProjectsDao;
 import com.maxml.bachelorhouse.db.TasksDao;
-import com.maxml.bachelorhouse.entity.Project;
 import com.maxml.bachelorhouse.entity.Task;
 
 public class AddTaskActivity extends AppCompatActivity {

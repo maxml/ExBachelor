@@ -19,9 +19,7 @@ import android.widget.Toast;
 
 import com.maxml.bachelorhouse.R;
 import com.maxml.bachelorhouse.db.MachinesDao;
-import com.maxml.bachelorhouse.db.RoomsDao;
 import com.maxml.bachelorhouse.entity.Machine;
-import com.maxml.bachelorhouse.entity.Room;
 import com.maxml.bachelorhouse.util.BachelorConstants;
 
 /**

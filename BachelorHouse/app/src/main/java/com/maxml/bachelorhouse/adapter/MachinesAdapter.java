@@ -2,7 +2,6 @@ package com.maxml.bachelorhouse.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import com.maxml.bachelorhouse.R;
 import com.maxml.bachelorhouse.entity.Machine;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Maxml on 16.05.2016.

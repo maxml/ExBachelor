@@ -38,6 +38,36 @@ public class RoomsFragment extends Fragment {
 
     private ActionMode actionMode;
     private int position;
+    private ActionMode.Callback callback = new ActionMode.Callback() {
+
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.menu_item_popup, menu);
+            return true;
+        }
+
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_delete:
+                    RoomsDao dao = new RoomsDao(getActivity());
+                    dao.delete(rooms.get(position));
+
+                    updateAdapter();
+
+                    mode.finish();
+                    break;
+            }
+            return false;
+        }
+
+        public void onDestroyActionMode(ActionMode mode) {
+            actionMode = null;
+        }
+
+    };
 
     public RoomsFragment() {
         // Required empty public constructor
@@ -120,37 +150,6 @@ public class RoomsFragment extends Fragment {
             noRooms.setVisibility(View.GONE);
         }
     }
-
-    private ActionMode.Callback callback = new ActionMode.Callback() {
-
-        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-            mode.getMenuInflater().inflate(R.menu.menu_item_popup, menu);
-            return true;
-        }
-
-        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-            return false;
-        }
-
-        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_delete:
-                    RoomsDao dao = new RoomsDao(getActivity());
-                    dao.delete(rooms.get(position));
-
-                    updateAdapter();
-
-                    mode.finish();
-                    break;
-            }
-            return false;
-        }
-
-        public void onDestroyActionMode(ActionMode mode) {
-            actionMode = null;
-        }
-
-    };
 //    private boolean isLandscapeMode() {
 //        return getResources().getConfiguration().orientation == getResources().getConfiguration().ORIENTATION_LANDSCAPE;
 //    }

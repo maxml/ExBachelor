@@ -29,7 +29,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.maxml.bachelorhouse.R;
-import com.maxml.bachelorhouse.activity.RoomsActivity;
 import com.maxml.bachelorhouse.activity.projects.ProjectsActivity;
 import com.maxml.bachelorhouse.db.UserDao;
 import com.maxml.bachelorhouse.util.BachelorConstants;
@@ -256,6 +255,14 @@ public class LoginFragment extends Fragment implements LoaderManager.LoaderCallb
 
     }
 
+    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(getActivity(),
+                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
+
+        mEmailView.setAdapter(adapter);
+    }//END AUTOCOMPLETE
+
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -265,14 +272,6 @@ public class LoginFragment extends Fragment implements LoaderManager.LoaderCallb
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
     }
-
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-
-        mEmailView.setAdapter(adapter);
-    }//END AUTOCOMPLETE
 
     /**
      * Represents an asynchronous login/registration Task used to authenticate
